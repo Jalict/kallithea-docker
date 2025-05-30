@@ -1,7 +1,7 @@
 # Kallithea Docker Setup
 [![Docker Pulls](https://img.shields.io/docker/pulls/jalict/kallithea.svg)](https://hub.docker.com/r/jalict/kallithea)
 
-This repository provides a docker images for running [Kallithea](https://kallithea-scm.org/) [kallithea](https://kallithea-scm.org/) since most I could find were heavily outdated or couldn't be built any longer.
+This repository provides docker images for running [Kallithea](https://kallithea-scm.org/), since most I could find were heavily outdated or couldn't be built any longer.
 
 This is my first attempt in publishing a docker image.
 

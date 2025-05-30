@@ -5,7 +5,7 @@ This repository provides a docker images for running [Kallithea](https://kallith
 
 This is my first attempt in publishing a docker image.
 
-# Setup
+## Setup
 Use the `docker-compose.yml` file.
 ```yml
 services:
@@ -36,5 +36,5 @@ docker compose up -d
 
 The Kallithea web interface will be available on `http://localhost:5000`
 
-# Note
+## Note
 The image is set to `sqlite` and I do not intend to make support unless someone wants to do to initial work via pull request.

@@ -1,0 +1,11 @@
+services:
+  kallithea:
+    image: jalict/kallithea
+    ports:
+      - "5000:5000"
+    volumes:
+      - kallithea_data:/opt/kallithea
+      - kallithea_repos:/opt/repos
+volumes:
+  kallithea_data: null
+  kallithea_repos: null

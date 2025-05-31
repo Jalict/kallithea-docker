@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.13-alpine
 
 ENV LANG=en_US.UTF-8 \
     LC_ALL=en_US.UTF-8 \
@@ -7,16 +7,28 @@ ENV LANG=en_US.UTF-8 \
     KALLITHEA_CONFIG=/opt/kallithea/my.ini \
     REPO_ROOT=/opt/repos
 
-# System dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install system dependencies
+RUN apk add --no-cache \
     git \
     mercurial \
     npm \
-    && rm -rf /var/lib/apt/lists/*
+    bash \
+    build-base \
+    libffi-dev \
+    openssl-dev \
+    gettext \
+    musl-dev \
+    gcc \
+    py3-pip \
+    py3-wheel \
+    py3-setuptools \
+    linux-headers \
+    curl
 
 # Create kallithea user and necessary dirs
-RUN useradd -ms /bin/bash kallithea
-RUN mkdir -p $KALLITHEA_HOME $REPO_ROOT && chown -R kallithea:kallithea /opt
+RUN adduser -D -h /home/kallithea kallithea && \
+    mkdir -p $KALLITHEA_HOME $REPO_ROOT && \
+    chown -R kallithea:kallithea /opt
 
 USER kallithea
 WORKDIR $KALLITHEA_HOME
@@ -28,14 +40,14 @@ RUN hg clone https://kallithea-scm.org/repos/kallithea -u stable $KALLITHEA_HOME
 RUN python3 -m venv $VENV_PATH
 ENV PATH="$VENV_PATH/bin:$PATH"
 
-# Install dependencies
+# Install Python dependencies
 RUN pip install --upgrade pip setuptools wheel && \
     pip install --upgrade -e .
 
 # Compile translation catalogs
 RUN python3 setup.py compile_catalog
 
-# Prepare front-end
+# Build front-end
 RUN kallithea-cli front-end-build
 
 # Copy entrypoint

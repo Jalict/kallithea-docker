@@ -5,12 +5,18 @@ This repository provides docker images for running [Kallithea](https://kallithea
 
 This is my first attempt in publishing a docker image.
 
+## Tags
+```
+latest
+0.7.0
+```
+
 ## Setup
 Use the `docker-compose.yml` file.
 ```yml
 services:
   kallithea:
-    image: jalict/kallithea
+    image: jalict/kallithea:latest
     ports:
       - "5000:5000"
     volumes:
